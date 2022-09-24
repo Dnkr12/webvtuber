@@ -119,16 +119,16 @@ if (isset($_POST["submit"])) {
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input name="name" type="text" id="form3Example1c" class="form-control" />
                                                 <label class="form-label" for="form3Example1c">Your Name</label>
+                                                <input name="name" type="text" id="form3Example1c" class="form-control" />
                                             </div>
                                         </div>
 
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="email" name="email" id="form3Example3c" class="form-control" />
                                                 <label class="form-label" for="form3Example3c">Your Email</label>
+                                                <input type="email" name="email" id="form3Example3c" class="form-control" />
 
                                             </div>
 
@@ -137,19 +137,22 @@ if (isset($_POST["submit"])) {
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input name="password" type="password" id="form3Example4c" class="form-control" />
                                                 <label class="form-label" for="form3Example4c">Password</label>
+                                                <input name="password" type="password" id="form3Example4c" class="form-control" />
+                                                <br>
+                                                <input class="form-check-input" type="checkbox" onclick="myFunction()"> Show password
                                                 <?php if ($validate != '') { ?>
                                                     <p class="text-danger"><?= $validate; ?></p>
                                                 <?php } ?>
+
                                             </div>
                                         </div>
 
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input name="repassword" type="password" id="form3Example4cd" class="form-control" />
                                                 <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                                                <input name="repassword" type="password" id="form3Example4cd" class="form-control" />
 
                                             </div>
                                             <?php if ($validate != '') { ?>
@@ -183,6 +186,7 @@ if (isset($_POST["submit"])) {
             </div>
         </div>
     </section>
+    <script src="scripts.js"></script>
 </body>
 
 </html>
