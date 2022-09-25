@@ -40,3 +40,29 @@ function tambah($data)
 
     return mysqli_affected_rows($conn);
 }
+function ubah($data)
+{
+    global $conn;
+
+    $id = $data["id"];
+    $originalName = htmlspecialchars($data["originalname"]);
+    $nama = htmlspecialchars($data["nama"]);
+    $nickName = htmlspecialchars($data["nickname"]);
+    $debut_date = htmlspecialchars($data["debut_date"]);
+    $deskripsi = htmlspecialchars($data["deskripsi"]);
+    $gambar = htmlspecialchars($data["gambar"]);
+
+    $query = "UPDATE vtuber SET 
+                originalname = '$originalName',
+                nama = '$nama',
+                nickname = '$nickName',
+                debut_date = '$debut_date',
+                deskripsi = '$deskripsi',
+                gambar = '$gambar'
+                WHERE id = $id
+                ";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
