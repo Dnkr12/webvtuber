@@ -34,6 +34,7 @@ if (isset($_POST["cari"])) {
                 <td><?= $i; ?></td>
                 <td>
                     <a href="ubah.php?id=<?= $row["id"]; ?>">ubah</a>
+                    <a href="hapus.php?id=<?= $row["id"]; ?>" onclick="return confirm('Yakin menghapus?');">hapus</a>
 
                 </td>
                 <td><?= $row['originalname']; ?></td>
