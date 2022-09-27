@@ -1,6 +1,29 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'webvtuber');
 session_start();
+
+// session_start();
+// if (!isset($_COOKIE['name']) && !isset($_SESSION['login'])) {
+//     header("location:login.php");
+//     exit();
+// }
+
+// if (isset($_COOKIE['name'])) {
+//     header("location:index.php");
+//     exit();
+// }
+// cek cookie
+// if (isset($_COOKIE['login'])) {
+//     if ($_COOKIE['login'] == 'true') {
+//         $_SESSION['login'] = true;
+//     }
+// }
+
+
+if (isset($_SESSION["login"])) {
+    header("Location: index.php");
+    exit;
+}
+$conn = mysqli_connect('localhost', 'root', '', 'webvtuber');
 
 $error = '';
 $validate = '';
@@ -21,6 +44,8 @@ if (isset($_POST['submit'])) {
             if (password_verify($password, $hash)) {
                 $_SESSION['name'] = $name;
 
+
+                $_SESSION['login'] = true;
                 header('Location: index.php');
             }
 
@@ -46,7 +71,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
@@ -63,7 +88,7 @@ if (isset($_POST['submit'])) {
                             <div class="row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign In</p>
 
                                     <form class="mx-1 mx-md-4" action="" method="POST">
                                         <?php if ($error != '') : ?>
@@ -94,15 +119,19 @@ if (isset($_POST['submit'])) {
 
 
                                         <div class="form-check d-flex justify-content-center mb-5">
-                                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" name="remember" />
                                             <label class="form-check-label" for="form2Example3">
-                                                I agree all statements in <a href="#!">Terms of service</a>
+                                                Remember me
                                             </label>
                                         </div>
 
-                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button name="submit" type="submit" class="btn btn-primary btn-lg">Register</button>
+                                        <div class="d-flex justify-content-center mx-4 mb-5 mb-lg-4">
+                                            <button name="submit" type="submit" class="btn btn-primary btn-lg">Login</button>
+
+
                                         </div>
+                                        <h5 class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">Daftar disini</h5>
+                                        <a href="register.php" class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">Register</a>
 
                                     </form>
 

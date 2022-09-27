@@ -1,7 +1,23 @@
 <?php
+session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+}
 require_once "functions.php";
 
-$vtuber = query("SELECT * FROM vtuber");
+// Pagination
+// Konfigurasi
+$jumlahDataPerHalaman = 2;
+$jumlahData = count(query("SELECT * FROM vtuber"));
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+$halamanAktif = (isset($_GET['halaman'])) ? $_GET['halaman'] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+
+$vtuber = query("SELECT * FROM vtuber LIMIT $awalData , $jumlahDataPerHalaman");
+
 if (isset($_POST["cari"])) {
     $vtuber = cari($_POST["keyword"]);
 }
@@ -74,10 +90,41 @@ if (isset($_POST["cari"])) {
                             <h2 class="fw-bolder fs-4">Nickname : <?= $row['nickname']; ?></h2>
 
                             <p class="fs-5 mb-4"><?= $row['deskripsi']; ?></p>
+
                         </section>
                     <?php endforeach; ?>
 
+
                 </article>
+
+                <nav class="d-flex justify-content-center mx-4 mb-3 mb-lg-4" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <?php if ($halamanAktif > 1) : ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?halaman=<?= $halamanAktif - 1; ?>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+
+                            </li>
+                        <?php endif; ?>
+                        <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
+                            <?php if ($i == $halamanAktif) : ?>
+                                <li class="page-item"><a style="font-weight:bold ;" class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+                            <?php else : ?>
+                                <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+
+                        <?php if ($halamanAktif < $jumlahHalaman) : ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?halaman=<?= $halamanAktif + 1; ?>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+
+                        <?php endif; ?>
+                    </ul>
+                </nav>
                 <!-- Comments section-->
                 <section class="mb-5">
                     <div class="card bg-light">

@@ -1,6 +1,12 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'webvtuber');
 session_start();
+
+if (!isset($_SESSION["login"])) {
+    header("Location: login.php");
+    exit;
+}
+$conn = mysqli_connect('localhost', 'root', '', 'webvtuber');
+
 
 $error = '';
 $validate = '';
